@@ -1,35 +1,31 @@
 {
   "workspace": {
     "packages": {
-      "structured-logging": {
+      "environment": {
         "path": "./",
         "core": {
           "dependencies": [
             {
-              "argonaut-codecs": ">=9.0.0 <10.0.0"
-            },
-            {
-              "argonaut-core": ">=7.0.0 <8.0.0"
-            },
-            {
-              "console": ">=6.1.0 <7.0.0"
-            },
-            {
               "effect": ">=4.0.0 <5.0.0"
             },
             {
-              "js-date": ">=8.0.0 <9.0.0"
+              "exceptions": ">=6.1.0 <7.0.0"
+            },
+            {
+              "maybe": ">=6.0.0 <7.0.0"
+            },
+            {
+              "node-process": ">=11.0.0 <12.0.0"
             },
             {
               "prelude": ">=3.0.0 <7.0.0"
             }
           ],
           "build_plan": [
-            "argonaut-codecs",
-            "argonaut-core",
+            "aff",
+            "arraybuffer-types",
             "arrays",
             "bifunctors",
-            "console",
             "const",
             "contravariant",
             "control",
@@ -49,20 +45,24 @@
             "identity",
             "integers",
             "invariant",
-            "js-date",
             "lazy",
             "lists",
             "maybe",
             "newtype",
+            "node-buffer",
+            "node-event-emitter",
+            "node-process",
+            "node-streams",
             "nonempty",
-            "now",
+            "nullable",
             "numbers",
             "ordered-collections",
             "orders",
+            "parallel",
             "partial",
+            "posix-types",
             "prelude",
             "profunctor",
-            "record",
             "refs",
             "safe-coerce",
             "st",
@@ -78,6 +78,7 @@
         },
         "test": {
           "dependencies": [
+            "either",
             "spec",
             "spec-node"
           ],
