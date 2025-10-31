@@ -2,7 +2,9 @@
   "packageManager": "yarn@4.1.1",
   "repository": "https://github.com/JoelLefkowitz/environment",
   "homepage": "https://joellefkowitz.github.io/environment",
-  "keywords": [],
+  "keywords": [
+    "environment"
+  ],
   "scripts": {
     "postinstall": "husky",
     "lint": "cspell . --dot --gitignore && eslint . --fix --no-error-on-unmatched-pattern && trufflehog3",
