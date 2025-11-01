@@ -83,6 +83,7 @@
         "test": {
           "dependencies": [
             "either",
+            "point-free",
             "spec",
             "spec-node"
           ],
@@ -142,6 +143,7 @@
             "parallel",
             "partial",
             "pipes",
+            "point-free",
             "posix-types",
             "prelude",
             "profunctor",
@@ -1439,6 +1441,14 @@
         "tailrec",
         "transformers",
         "tuples"
+      ]
+    },
+    "point-free": {
+      "type": "registry",
+      "version": "1.0.0",
+      "integrity": "sha256-N4p+d1jaQ4zQ2RshC7bx+JXZPSQHhCsKCgN6MwxlXWg=",
+      "dependencies": [
+        "prelude"
       ]
     },
     "posix-types": {

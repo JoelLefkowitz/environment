@@ -56,18 +56,20 @@ data Environment = Development | Production
 
 `detect ∷ ∀ m. MonadEffect m ⇒ m Environment`
 
-Detect and parse the value of the `NODE_ENV`
+Lookup and parse the value of the `NODE_ENV`
 
 ```purs
 import Prelude
 import Effect (Effect)
+import Node.Process.Environment (Environment(..))
 import Node.Process.Environment as Environment
 
 main ∷ Effect Unit
 main = do
-    environment ← Environment.detect
-
-    -- Do something environment specific ...
+  environment ← Environment.detect
+  case environment of
+    Production → ...
+    Development → ...
 ```
 
 ## Documentation

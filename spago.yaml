@@ -25,6 +25,7 @@ package:
     main: Test.Main
     dependencies:
       - either
+      - point-free
       - spec
       - spec-node
 
