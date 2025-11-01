@@ -1,8 +1,14 @@
-module Node.Process.Environment where
+module Node.Process.Environment
+  ( Environment(..)
+  , detect
+  , lookup
+  , require
+  ) where
 
 import Prelude
 
-import Data.Maybe (maybe)
+import Data.Maybe (Maybe(..), fromMaybe, maybe)
+import Data.String.Read (class Read, read)
 import Effect (Effect)
 import Effect.Class (class MonadEffect, liftEffect)
 import Effect.Exception (throw)
@@ -13,18 +19,28 @@ data Environment = Development | Production
 derive instance eqEnvironment ∷ Eq Environment
 
 instance showEnvironment ∷ Show Environment where
-  show Production = "Production"
-  show Development = "Development"
+  show Production = "production"
+  show Development = "development"
 
-missing ∷ ∀ a. String → Effect a
-missing name = throw $ "Missing environment variable: " <> name
+instance readEnvironment ∷ Read Environment where
+  read "production" = Just Production
+  read "development" = Just Development
+  read _ = Nothing
+
+reject ∷ ∀ a. String → String → Maybe a → Effect a
+reject message x = maybe (throw $ message <> ": " <> x) pure
+
+lookup ∷ ∀ m. MonadEffect m ⇒ String → String → m String
+lookup name fallback = liftEffect do
+  env ← lookupEnv name
+  pure $ fromMaybe fallback env
 
 require ∷ ∀ m. MonadEffect m ⇒ String → m String
-require name = liftEffect $ maybe (missing name) pure =<< lookupEnv name
+require name = liftEffect do
+  env ← lookupEnv name
+  reject "Missing environment variable" name env
 
-lookup ∷ ∀ m. MonadEffect m ⇒ m Environment
-lookup = do
-  environment ← require "NODE_ENV"
-  pure case environment of
-    "production" → Production
-    _ → Development
+detect ∷ ∀ m. MonadEffect m ⇒ m Environment
+detect = liftEffect do
+  env ← require "NODE_ENV"
+  reject "Not a valid environment" env $ read env

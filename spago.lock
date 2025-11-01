@@ -19,6 +19,9 @@
             },
             {
               "prelude": ">=3.0.0 <7.0.0"
+            },
+            {
+              "read": ">=1.0.1 <2.0.0"
             }
           ],
           "build_plan": [
@@ -63,6 +66,7 @@
             "posix-types",
             "prelude",
             "profunctor",
+            "read",
             "refs",
             "safe-coerce",
             "st",
@@ -1465,6 +1469,16 @@
         "newtype",
         "prelude",
         "tuples"
+      ]
+    },
+    "read": {
+      "type": "registry",
+      "version": "1.0.1",
+      "integrity": "sha256-TnAcs7zSrKMkh3u639SvNkP2fycN9UYYdBWQGDfqXoI=",
+      "dependencies": [
+        "maybe",
+        "prelude",
+        "strings"
       ]
     },
     "record": {

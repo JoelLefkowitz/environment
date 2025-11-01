@@ -14,41 +14,60 @@ spago install environment
 
 ## Usage
 
+### Variables
+
+`lookup ∷ ∀ m. MonadEffect m ⇒ String → String → m String`
+
+Look up an environment variable with a fallback:
+
+```purs
+import Node.Process.Environment (lookup)
+
+lookup "BASE_URL" "/"
+```
+
 `require ∷ ∀ m. MonadEffect m ⇒ String → m String`
 
-Lookup an environment variable:
+Look up an environment variable, producing an `Effect.Exception` if it's missing:
 
 ```purs
 import Node.Process.Environment (require)
 
-require "EXAMPLE"
+require "BASE_URL"
 ```
 
-This will produce an `Effect.Exception` if the environment variable is not set (unlike `lookupEnv` from `Node.Process`):
-
-```purs
+```shell
 file:///Effect.Exception/foreign.js:6
   return new Error(msg);
          ^
-Error: Missing environment variable: EXAMPLE
+Error: Missing environment variable: BASE_URL
     at Module.error (file:///Effect.Exception/foreign.js:6:10)
 ```
 
-You can also check the value of `NODE_ENV` directly:
+Alternatively, if you want to return `Nothing` rather than a fallback or an error then `Node.Process` provides `lookupEnv`.
 
-`lookup ∷ ∀ m. MonadEffect m ⇒ m Environment`
+`lookupEnv :: String → Effect (Maybe String)`
+
+### Environment
 
 ```purs
 data Environment = Development | Production
 ```
 
+`detect ∷ ∀ m. MonadEffect m ⇒ m Environment`
+
+Detect and parse the value of the `NODE_ENV`
+
 ```purs
+import Prelude
+import Effect (Effect)
 import Node.Process.Environment as Environment
 
 main ∷ Effect Unit
 main = do
-    environment ← Environment.lookup
-    ...
+    environment ← Environment.detect
+
+    -- Do something environment specific ...
 ```
 
 ## Documentation
